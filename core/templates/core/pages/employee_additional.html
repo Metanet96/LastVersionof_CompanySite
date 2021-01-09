@@ -1,0 +1,184 @@
+{% extends 'core/layout/base.html' %}
+{% block main %}
+<body>
+<section class="body">
+    <div class="inner-wrapper">
+        <section role="main" class="content-body pb-0">
+            <header class="page-header">
+                <h2>Employee Additionals</h2>
+                <div class="right-wrapper text-right">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="{% url 'core:company' %}">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li><span>Employee Additionals</span></li>
+                    </ol>
+                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </header>
+            <div class="col-lg-10 mx-auto mb-4">
+                <button type="button" class=" mt-1 mr-1 btn btn-outline-success" ><a
+                        href="{% url 'core:employee' %}" style="color:black;">
+                    BACK</a> <i class="fas fa-backspace" style="color:black"></i></button>
+
+                <h3 style="text-align:center"> Additional information about
+                    <span style="color:BlueViolet"> {{ about.surname }} {{ about.name }}</span>
+                </h3>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <section class="card">
+                            <header class="card-header">
+                                <div class="card-actions">
+                                    <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                                    <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                                </div>
+                                <h2 class="card-title">Educational information:</h2>
+                            </header>
+                            <div class="card-body" style="background-color:Aquamarine">
+                                <table class="table table-responsive-md mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th>Edu type</th>
+                                        <th>Edu center</th>
+                                        <th>From </th>
+                                        <th>To </th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {%  for info in edu_info %}
+                                    <tr>
+                                        <td>{{ info.education_type }} </td>
+                                        <td>{{ info.education_center }} </td>
+                                        <td>{{ info.edu_from_date }} </td>
+                                        <td>{{ info.edu_to_date }} </td>
+                                        <td class="actions">
+                                            {% if request.user.email == info.employee_id.email or request.user.is_superuser %}
+                                            <a href="{% url 'core:edu_update' info.pk %}">
+                                                <i class="fas fa-pencil-alt"></i></a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% empty  %}
+                                    <h1> No information</h1>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </div>  <br>
+                {% if request.user.email == about.email %}
+                <button type="button" class=" mt-1 mr-1 btn" style="background-color:Aquamarine; box-shadow:0 8px 16px 0 black;"><a
+                        href="{% url 'core:edu_create' %}" style="color:black;">
+                    ADD </a> <i class="fas fa-plus-circle"></i></button> <br><br>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <section class="card">
+                            <header class="card-header">
+                                <div class="card-actions">
+                                    <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                                    <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                                </div>
+                                <h2 class="card-title">Language information:</h2>
+                            </header>
+                            <div class="card-body" style="background-color:DarkTurquoise">
+                                <table class="table table-responsive-md mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th>Language</th>
+                                        <th>Level </th>
+                                        <th>Certificate № </th>
+                                        <th>Certificate date </th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {%  for info in lang_info %}
+                                    <tr >
+                                        <td>{{ info.language }} </td>
+                                        <td>{{ info.language_level }} </td>
+                                        <td>{{ info.certificate_number }} </td>
+                                        <td>{{ info.certificate_date }} </td>
+                                        <td class="actions">
+                                            {% if request.user.email == info.emplooyee.email or request.user.is_superuser %}
+                                            <a href="{% url 'core:lang_update' info.pk %}">
+                                                <i class="fas fa-pencil-alt"></i></a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% empty  %}
+                                    <h1 style="color:black"> No information</h1>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </div> <br>
+                {% if request.user.email == about.email %}
+                <button type="button" class=" mt-1 mr-1 btn" style="background-color:DarkTurquoise; box-shadow:0 8px 16px 0 black;"><a
+                        href="{% url 'core:lang_create' %}" style="color:black;">
+                    ADD </a> <i class="fas fa-plus-circle"></i></button> <br><br>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <section class="card">
+                            <header class="card-header">
+                                <div class="card-actions">
+                                    <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                                    <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                                </div>
+                                <h2 class="card-title">Experience information:</h2>
+                            </header>
+                            <div class="card-body" style="background-color:LightBlue">
+                                <table class="table table-responsive-md mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th>Work place</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Position</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {%  for info in exp_info %}
+                                    <tr >
+                                        <td>{{ info.work_place }} </td>
+                                        <td>{{ info.exp_from_date }} </td>
+                                        <td>{{ info.exp_to_date }} </td>
+                                        <td>{{ info.position }} </td>
+                                        <td class="actions">
+                                            {% if request.user.email == info.employee.email or request.user.is_superuser %}
+                                            <a href="{% url 'core:exp_update' info.pk %}">
+                                                <i class="fas fa-pencil-alt"></i></a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% empty  %}
+                                    <h1 style="color:black"> No information</h1>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </div> <br>
+                {% if request.user.email == about.email %}
+                <button type="button" class=" mt-1 mr-1 btn" style="background-color:LightBlue; box-shadow:0 8px 16px 0 black;"><a
+                        href="{% url 'core:exp_create' %}" style="color:black;">
+                    ADD </a> <i class="fas fa-plus-circle"></i></button> <br><br>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+</section>
+</body>
+{% endblock %}

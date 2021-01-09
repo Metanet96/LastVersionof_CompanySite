@@ -1,0 +1,41 @@
+{% extends 'core/layout/base.html' %}
+{% block main %}
+<body>
+<section class="body">
+    <div class="inner-wrapper">
+        <section role="main" class="content-body pb-0">
+            <header class="page-header">
+                <h2>Company</h2>
+                <div class="right-wrapper text-right">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="{% url 'core:company' %}">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li><span>Company</span></li>
+                    </ol>
+                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </header>
+            <div class="row">
+                {% for com in company %}
+                <div class="col-md-12">
+                    <h3 style="text-align:center">{{ com.name}} ({{ com.short_name}})</h3>
+                    <hr>
+                    <div class="scrollable" data-plugin-scrollable style="height: 500px;">
+                        <div class="scrollable-content" style="text-align:justify">
+                            <p> {{ com.about }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <br>
+                    <div><h4 style="text-align:right"> Ünvan : {{com.address}}</h4></div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</section>
+</body>
+{% endblock %}

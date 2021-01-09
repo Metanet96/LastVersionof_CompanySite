@@ -1,0 +1,89 @@
+{% extends 'core/layout/base.html' %}
+{% block main %}
+<body>
+<section class="body">
+    <div class="inner-wrapper">
+        <section role="main" class="content-body pb-0">
+            <header class="page-header">
+                <h2>Employee</h2>
+                <div class="right-wrapper text-right">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="{% url 'core:company' %}">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li><span>Employee</span></li>
+                    </ol>
+                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </header>
+            <div class="col-lg-10 mx-auto mb-4">
+                <button type="button" class=" mt-1 mr-1 btn btn-outline-warning"><a
+                        href="{% url 'core:employee_create' %}" style="color:black;">
+                    ADD</a> <i class="fas fa-plus" style="color:black;"></i></button>
+                <br> <br>
+                <section class="card">
+                    <header class="card-header">
+                        <div class="card-actions">
+                            <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                            <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                        </div>
+                        <h2 class="card-title"> Employee List</h2>
+                    </header>
+                    <div class="card-body" style="background-color:snow">
+                        <table class="table table-responsive-md table-hover  mb-0">
+                            <thead>
+                            <tr>
+                                <th>İd</th>
+                                <th>Surname</th>
+                                <th>Name</th>
+                                <th>Gender</th>
+                                <th>Staff</th>
+                                <th>Staff type</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for emp in employees %}
+                            <tr>
+                                <td>{{ emp.pk }}</td>
+                                <td>{{ emp.surname }}</td>
+                                <td>{{ emp.name }}</td>
+                                <td>{{ emp.gender }}</td>
+                                <td>{{ emp.staff }}</td>
+                                <td>{{ emp.staff_type }}</td>
+                                <td class="actions-hover actions-fade">
+                                    {% if request.user.email == emp.email or request.user.is_superuser %}
+                                    <a href="{% url 'core:employee_update' emp.pk %}"><i
+                                            class="fas fa-pencil-alt text-primary"></i></a>
+                                    <a href="{% url 'core:employee_delete' emp.pk %}" class="delete-row"><i
+                                            class="far fa-trash-alt text-danger"></i></a>
+                                    {% endif %}
+                                     <a href="{% url 'core:employee_additional' emp.pk %}"> <i
+                                             class="fas fa-plus text-success"></i> </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+</section>
+</body>
+{% endblock %}
+{% block js %}
+<script>
+	 $('.delete-row').on('click',function(event){
+	 	event.preventDefault();
+        let confirm = window.confirm('Are you sure?');
+        if (confirm) {
+			window.location.href = $(this).attr('href');
+		}
+    });
+
+</script>
+{% endblock %}

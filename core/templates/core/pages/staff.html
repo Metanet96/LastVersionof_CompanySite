@@ -1,0 +1,144 @@
+{% extends 'core/layout/base.html' %}
+{% load static %}
+{% block main %}
+<body>
+<section class="body">
+    <div class="inner-wrapper">
+        <section role="main" class="content-body pb-0">
+            <header class="page-header">
+                <h2>Staff</h2>
+                <div class="right-wrapper text-right">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="{% url 'core:company' %}">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li><span>Staff</span></li>
+                    </ol>
+                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </header>
+            <div class="container">
+                {% if request.user.is_superuser %}
+                <div>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#staffModal">
+                        Add <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                {% endif %}
+                <br> <br>
+                <section class="card">
+                    <header class="card-header">
+                        <div class="card-actions">
+                            <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                            <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                        </div>
+                        <h2 class="card-title">STAFF LİST</h2>
+                    </header>
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped" id="datatable">
+                            <thead>
+                            <tr>
+                                <th width="10%">İd</th>
+                                <th width="35%">Branch Name</th>
+                                <th width="35%">Staff Name</th>
+                                <th width="20%">Actions</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+    <!-- Modal for creating staff -->
+    <div class="modal fade " id="staffModal" tabindex="-1" role="dialog" aria-labelledby="staffModal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:green; color:white;">
+                    <h5 class="modal-title" id="exampleModalLabel">ADD STAFF</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="add-staff-branch" class="control-label"> Branch Name:</label>
+                        <select name="branch" id="add-staff-branch" class="form-control" required>
+                            <option hidden> Select category:</option>
+                            {% for branch in branches %}
+                            <option value="{{ branch.pk }}">{{ branch.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-staff-name" class="control-label"> Name:</label>
+                        <input type="text" name="name" id="add-staff-name" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="add-staff-short_name" class="control-label"> Short name::</label>
+                        <input type="text" name="name" id="add-staff-short_name" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+                    <button type="button" class="btn btn-success" id="add-staff-submit">ADD</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for updating authors -->
+    {% if request.user.is_superuser %}
+    <div class="modal fade" id="staffUpdateModal" tabindex="-1" role="dialog" aria-labelledby="staffModal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:orange; color:white">
+                    <h5 class="modal-title" id="exampleModalLab">UPDATE STAFF</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="pk" value="" id="update-staff-pk"/>
+                    <div class="form-group">
+                        <label for="update-staff-branch" class="control-label"> Branch Name:</label>
+                        <select name="branch" id="update-staff-branch" class="form-control" required>
+                            {% for branch in branches %}
+                            <option
+                                    {% if staff.branch.pk == branch.pk %}  selected {% endif%}
+                                    value="{{ branch.pk }}">{{ branch.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-staff-name" class="control-label"> Name:</label>
+                        <input type="text" name="name" id="update-staff-name" value="" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-staff-short_name" class="control-label"> Short Name:</label>
+                        <input type="text" name="name" id="update-staff-short_name" value="" class="form-control"
+                               required/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+                    <button type="button" class="btn btn-warning" id="update-staff-submit">UPDATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</section>
+</body>
+{% endblock %}
+{% block js %}
+<script src="{% static 'core/js/app.js' %}"></script>
+{% endblock %}

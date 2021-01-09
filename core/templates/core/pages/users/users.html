@@ -1,0 +1,73 @@
+{% extends 'core/layout/base.html' %}
+{% block main %}
+<body>
+<section class="body">
+    <div class="inner-wrapper">
+        <section role="main" class="content-body pb-0">
+            <header class="page-header">
+                <h2>Users</h2>
+                <div class="right-wrapper text-right">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="{% url 'core:company' %}">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li><span>Users</span></li>
+                    </ol>
+                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </header>
+            <div class="container">
+                <table class="table table-responsive-md table-success  mb-0">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Date joined</th>
+                        <th>Last login</th>
+                        <th>is_staff</th>
+                        <th>is_active</th>
+                        <th>is_superuser</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ request.user.pk }}</td>
+                            <td>{{ request.user.username }}</td>
+                            <td>{{ request.user.email }}</td>
+                            <td>{{ user.date_joined }}</td>
+                            <td>{{ user.last_login }}</td>
+                            <td>{{ user.is_staff }}</td>
+                            <td>{{ user.is_active }}</td>
+                            <td>{{ user.is_superuser }}</td>
+                            <td class="actions-hover actions-fade">
+                                <a href="{% url 'core:password_update' %}"><i class="fas fa-pencil-alt"
+                                                                              style="color:green"></i></a>
+                                <a href="{% url 'core:user_delete' request.user.pk %}" class="delete-row"><i
+                                        class="far fa-trash-alt" style="color:green"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</section>
+</body>
+{% endblock %}
+{% block js %}
+<script>
+	 $('.delete-row').on('click',function(event){
+	 	event.preventDefault();
+
+        let confirm = window.confirm('Are you sure?');
+        if (confirm) {
+			window.location.href = $(this).attr('href');
+		}
+    });
+
+</script>
+{% endblock %}

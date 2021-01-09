@@ -1,0 +1,81 @@
+{% extends 'core/layout/base.html' %}
+{% block main %}
+<body>
+<section class="body">
+    <div class="inner-wrapper">
+        <section role="main" class="content-body pb-0">
+            <header class="page-header">
+                <h2>Branch</h2>
+                <div class="right-wrapper text-right">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="{% url 'core:company' %}">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li><span>Branch</span></li>
+                    </ol>
+
+                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </header>
+            <div class="col-lg-10 mx-auto mb-4">
+                <button type="button" class=" mt-1 mr-1 btn btn-dark" style="margin-left:700px;"><a
+                        href="{% url 'core:branch_create' %}"> ADD</a> <i class="fas fa-plus"></i></button>
+                <br> <br>
+                <section class="card">
+                    <header class="card-header">
+                        <div class="card-actions">
+                            <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                            <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                        </div>
+                        <h2 class="card-title"> Branchs</h2>
+                    </header>
+                    <div class="card-body">
+                        <table class="table table-responsive-md table-hover table-dark mb-0">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Short Name</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for br in branch %}
+                            <tr>
+                                <td>{{ br.pk }}</td>
+                                <td>{{ br.name }}</td>
+                                <td>{{ br.short_name }}</td>
+                                <td class="actions-hover actions-fade">
+                                    <a href="{% url 'core:branch_update' br.pk %}"><i class="fas fa-pencil-alt"
+                                                                                      style="color:white"></i></a>
+                                    <a href="{% url 'core:branch_delete' br.pk %}" class="delete-row"><i
+                                            class="far fa-trash-alt" style="color:white"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+</section>
+</body>
+{% endblock %}
+{% block js %}
+<script>
+	 $('.delete-row').on('click',function(event){
+	 	event.preventDefault();
+
+        let confirm = window.confirm('Are you sure?');
+        if (confirm) {
+			window.location.href = $(this).attr('href');
+		}
+    });
+
+</script>
+{% endblock %}

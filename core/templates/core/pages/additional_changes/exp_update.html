@@ -1,0 +1,94 @@
+{% extends 'core/layout/base.html' %}
+{% block main %}
+<body>
+<section class="body">
+    <div class="inner-wrapper">
+        <section role="main" class="content-body pb-0">
+            <header class="page-header">
+                <h2>Education update</h2>
+                <div class="right-wrapper text-right">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="{% url 'core:company' %}">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li><span>Experience update</span></li>
+                    </ol>
+                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </header>
+            <div class="col-lg-8 mx-auto">
+                <main>
+                    <form method="post" class="form-horizontal form-bordered">
+                        {% csrf_token %}
+                        <section class="card">
+                            <header class="card-header">
+                                <div class="card-actions">
+                                    <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                                    <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                                </div>
+                                <h2 class="card-title">Update Experience: <span style="color:BlueViolet">{{ exp_info.employee.surname }} {{ exp_info.employee.name }}</span></h2>
+                            </header>
+                            <div class="card-body" style="background-color:Linen">
+                                <div class="form-group row">
+                                    <label for="employee" class="col-sm-4 control-label text-sm-right pt-2">About:</label>
+                                    <div class="col-sm-8">
+                                        <select name="employee" id="employee" class="form-control">
+                                            {% for a in about %}
+                                            <option value="{{ a.pk }}">{{ a.surname }} {{ a.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="work_place" class="col-sm-4 control-label text-sm-right pt-2">Work place:</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="work_place" name="work_place" class="form-control"
+                                               value="{{ exp_info.work_place }}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="exp_from_date" class="col-sm-4 control-label text-sm-right pt-2">From:</label>
+                                    <div class="col-sm-8">
+                                        <input type="date" id="exp_from_date" name="exp_from_date" class="form-control"
+                                               value="{{ exp_info.exp_from_date }}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="exp_to_date" class="col-sm-4 control-label text-sm-right pt-2">To:</label>
+                                    <div class="col-sm-8">
+                                        <input type="date" id="exp_to_date" name="exp_to_date" class="form-control"
+                                               value="{{ exp_info.exp_to_date }}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="position" class="col-sm-4 control-label text-sm-right pt-2">Position:</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="position" name="position" class="form-control"
+                                               value="{{ exp_info.position }}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="reason_of_left" class="col-sm-4 control-label text-sm-right pt-2">Reason of left:</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="reason_of_left" name="reason_of_left" class="form-control"
+                                               value="{{ exp_info.reason_of_left }}">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <footer class="card-footer text-right">
+                                <button class="btn btn-warning" type="submit">Update</button>
+                                <button class="btn btn-danger"><a href="{% url 'core:employee_additional' exp_info.employee.pk %}">Cancel</a>
+                                </button>
+                            </footer>
+                        </section>
+                    </form>
+                </main>
+            </div>
+        </section>
+    </div>
+</section>
+</body>
+{% endblock %}

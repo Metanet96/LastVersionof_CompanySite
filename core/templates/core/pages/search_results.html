@@ -1,0 +1,59 @@
+{% extends 'core/layout/base.html' %}
+{% block main %}
+<body>
+<section class="body">
+    <div class="inner-wrapper">
+        <section role="main" class="content-body">
+            <header class="page-header">
+                <h2>Searching Results</h2>
+                <div class="right-wrapper text-right">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="{% url 'core:company' %}">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li><span>Pages</span></li>
+                        <li><span>Search</span></li>
+                    </ol>
+                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </header>
+            <!-- start: page -->
+            <div class="search-content">
+                <div class="search-control-wrapper">
+                    <form action="{% url 'core:search_results' %}" method="get">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="q" id="q" placeholder="Enter you search">
+                                <span class="input-group-append">
+											<button class="btn bg-primary btn-primary " type="button">Search</button>
+										</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="container">
+                    <div class="mx-auto">
+                        <h1 style="box-shadow:5px 8px #888888">{{ counts }} result{{ counts|pluralize }} found for <span
+                                style="color:blue">'{{query_string}}'</span> : </h1>
+                    </div>
+                </div>
+                <br>
+                <div class="tab-content pb-5">
+                    <div id="everything" class="tab-pane active" style="width:70%;">
+                        {% for srch in search%}
+                        <p><a href="{% url 'core:employee' %}" class="text-dark"> {{ srch.name }} {{ srch.surname }} </a> >
+                        	<a href="{% url 'core:staff' %}" class="text-dark">{{ srch.staff.name }}</a></p>
+                        <hr><br>
+						{% endfor %}
+                    </div>
+
+                </div>
+            </div>
+            <!-- end: page -->
+        </section>
+    </div>
+</section>
+</body>
+{% endblock %}

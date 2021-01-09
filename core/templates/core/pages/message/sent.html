@@ -1,0 +1,185 @@
+{% extends 'core/layout/base.html' %}
+{% block main %}
+<body>
+<section class="body">
+    <div class="inner-wrapper">
+        <section role="main" class="content-body">
+            <header class="page-header">
+                <h2>Sent</h2>
+                <div class="right-wrapper text-right">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="{% url 'core:company' %}">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li><span>Mailbox</span></li>
+                        <li><span>Sent</span></li>
+                    </ol>
+                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </header>
+            <!-- start: page -->
+            <section class="content-with-menu mailbox">
+                <div class="content-with-menu-container" data-mailbox data-mailbox-view="folder">
+                    <div class="inner-menu-toggle">
+                        <a href="#" class="inner-menu-expand" data-open="inner-menu">
+                            Show Menu <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                    <menu id="content-menu" class="inner-menu" role="menu">
+                        <div class="nano">
+                            <div class="nano-content">
+                                <div class="inner-menu-toggle-inside">
+                                    <a href="#" class="inner-menu-collapse">
+                                        <i class="fas fa-chevron-up d-inline-block d-md-none"></i><i
+                                            class="fas fa-chevron-left d-none d-md-inline-block"></i> Hide Menu
+                                    </a>
+                                    <a href="#" class="inner-menu-expand" data-open="inner-menu">
+                                        Show Menu <i class="fas fa-chevron-down"></i>
+                                    </a>
+                                </div>
+
+                                <div class="inner-menu-content">
+                                    <a style="color:white" href="{% url 'core:compose' %}"
+                                       class="btn btn-block btn-info btn-md pt-2 pb-2 text-3">
+                                        <i class="fas fa-envelope mr-1"></i>
+                                        Compose
+                                    </a>
+                                    <ul class="list-unstyled mt-3 pt-3">
+                                        <li>
+                                            <a href="{% url 'core:inbox' %}" class="menu-item ">Inbox <span
+                                                    class="badge badge-info font-weight-normal float-right">{{ inbox_count }}</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'core:sent' %}" class="menu-item active">Sent</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'core:drafts' %}" class="menu-item">Drafts</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'core:trash' %}" class="menu-item">Trash</a>
+                                        </li>
+                                    </ul>
+                                    <hr class="separator"/>
+                                </div>
+                            </div>
+                        </div>
+                    </menu>
+                    <div class="inner-body mailbox-folder">
+                        <!-- START: .mailbox-header -->
+                        <header class="mailbox-header">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h1 class="mailbox-title font-weight-light m-0">
+                                        <a id="mailboxToggleSidebar" class="sidebar-toggle-btn trigger-toggle-sidebar">
+                                            <span class="line"></span>
+                                            <span class="line"></span>
+                                            <span class="line"></span>
+                                            <span class="line line-angle1"></span>
+                                            <span class="line line-angle2"></span>
+                                        </a>
+                                        Sent
+                                    </h1>
+                                </div>
+                            </div>
+                        </header>
+                        <!-- END: .mailbox-header -->
+                        <!-- START: .mailbox-actions -->
+                        <div class="mailbox-actions">
+                            <ul class="list-unstyled m-0 pt-3 pb-3">
+                                <li class="ib">
+                                    <i type="button" class="item-action fas fa-times text-danger" id="delete_all_items"></i>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- END: .mailbox-actions -->
+                        <div id="mailbox-email-list" class="mailbox-email-list">
+                            <div class="nano">
+                                <div class="nano-content">
+                                    <ul id="" class="list-unstyled">
+                                        {% for msg in message %}
+                                        <li>
+                                            <a href="{% url 'core:sent_detail' msg.pk %}">
+                                                <div class="col-sender">
+                                                    <div class="checkbox-custom checkbox-text-primary ib">
+                                                        <input type="checkbox" onclick="add_deleted_item_list(event)"
+                                                               id="delete" data-id="{{ msg.pk }}">
+                                                        <label for="delete"></label>
+                                                    </div>
+                                                    <p class="m-0 ib">{{ msg.to_id }}</p>
+                                                </div>
+                                                <div class="col-mail">
+                                                    <p class="m-0 mail-content">
+                                                        <span class="subject">{{ msg.subject }}&nbsp;</span>
+                                                    </p>
+                                                    <p class="m-0 mail-date" style="width:45%">{{ msg.time }}</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- end: page -->
+        </section>
+    </div>
+</section>
+</body>
+{% endblock %}
+
+
+{% block js%}
+<script>
+let deleted_items = [];
+
+    function add_deleted_item_list(event){
+        let msg_id = event.target.dataset.id;
+        let count = deleted_items.filter(function(del_item){
+            if(del_item == msg_id){
+                return del_item;
+            }
+        });
+        if(count.length ==0){
+            deleted_items.push(msg_id)
+        }
+        else{
+            deleted_items=deleted_items.filter(function(del_item){
+                if(del_item!=msg_id){
+                    return del_item;
+                }
+            });
+        }
+        console.log(deleted_items)
+
+    }
+
+
+    $('#delete_all_items').click(function () {
+        console.log(deleted_items)
+        let confirm = window.confirm('Are you sure?');
+        if (confirm) {
+            $.ajax({
+                type: 'post',
+                url: '{% url "api:operations" %}',
+                dataType: "JSON",
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    "key": "delete_messages",
+                    "deleted_message_list": JSON.stringify(deleted_items),
+                },
+                success: function (response) {
+                    window.location.href = "{% url 'core:sent' %}"
+                },
+                error: function (response) {
+                }
+            });
+        }
+    })
+
+</script>
+{%endblock%}

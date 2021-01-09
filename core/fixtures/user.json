@@ -1,0 +1,110 @@
+[
+  {
+    "model": "core.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$LHgIwOQvHwPr$rmlKk/MoSgPeF7XvjvboKewzCC4bN3LrMh2LAz3lYxU=",
+      "last_login": "2020-10-05T15:40:57.761Z",
+      "is_superuser": true,
+      "username": "metanetb",
+      "first_name": "",
+      "last_name": "",
+      "email": "metanetb@gmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-09-02T09:44:35.177Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "core.user",
+    "pk": 15,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$B9JJO99OYOvD$5GWdpyVnVdDQl86D+Rg67NEZY+bcCl2NCdeL+luRdFs=",
+      "last_login": "2020-10-05T15:41:52.737Z",
+      "is_superuser": false,
+      "username": "Gunnur",
+      "first_name": "",
+      "last_name": "",
+      "email": "hetemova96@inbox.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-09-18T18:34:08.015Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "core.user",
+    "pk": 19,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$b8AFZAfkNseg$D0OxLuZIUboGlDdNgHiOlNqC6ot+P2T6gFgzUlquoL4=",
+      "last_login": "2020-10-04T17:23:01.303Z",
+      "is_superuser": false,
+      "username": "Arzu",
+      "first_name": "",
+      "last_name": "",
+      "email": "muradov_arzu@inbox.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-09-18T19:22:57.433Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "core.user",
+    "pk": 25,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$zBGvQAf3uceO$hGVlGZoGByZKNqUcuN64/fT/Ud/OI5aNOPeoodCaDKc=",
+      "last_login": "2020-10-04T16:53:36.760Z",
+      "is_superuser": false,
+      "username": "Turan",
+      "first_name": "",
+      "last_name": "",
+      "email": "musa.turan@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-09-18T19:42:17.976Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "core.user",
+    "pk": 28,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$qQXvgTneFDLp$Bv4hobSb9jxDiw0mhUyeDPFqH1JBUogVISVdadOdWUo=",
+      "last_login": "2020-10-04T18:06:20.298Z",
+      "is_superuser": false,
+      "username": "Murad",
+      "first_name": "",
+      "last_name": "",
+      "email": "murad.murad@mail.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-10-04T18:02:36.036Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "core.user",
+    "pk": 29,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$Dq0rczDOLMoL$trStatgYFSwuBKPMfUAvLB/KNFJJN89hKasL9Z7mBwo=",
+      "last_login": "2020-10-04T18:08:21.816Z",
+      "is_superuser": false,
+      "username": "Ayxan",
+      "first_name": "",
+      "last_name": "",
+      "email": "xan.memmed@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2020-10-04T18:08:18.745Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

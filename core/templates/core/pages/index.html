@@ -1,0 +1,45 @@
+{% extends 'core/layout/base.html' %}
+{% block main %}
+<div>
+    {% if user.is_authenticated %}
+    <script>alert(" Hörmətli {{ user.username }}, Xoş gəlmisiniz !!!")  </script>
+    {% endif %}
+</div>
+<body>
+<section class="body">
+    <div class="inner-wrapper">
+        <section role="main" class="content-body pb-0">
+            <header class="page-header">
+                <h2>Index</h2>
+                <div class="right-wrapper text-right">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="{% url 'core:company' %}">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li><span>Index</span></li>
+                    </ol>
+                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </header>
+            <br> <br>
+            <div class="row">
+                <p style="font-family: 'Times New Roman', Times, serif; font-size: 35px;line-height: 3rem;">
+                    Hörmətli <span><i><a href="{% url 'core:users' %}" style="color:blue;">{{ user.username }}</a></i></span> siz {% for com in company %}
+                    <span style="font-style: oblique;" class="text-danger"> {{ com.name }}nin</span> {% endfor %}
+                    saytına
+                    daxil olmusuz. Burada siz <a href="{% url 'core:company' %}" class="text-body ">şirkətimiz</a>
+                    haqqında ətraflı oxuya
+                    bilərsiniz. Eyni zamanda şirkətimizdəki müvafiq <a href="{% url 'core:staff' %}" class="text-body">
+                    vəzifələrlə</a> tanış ola və bütün <a href="{% url 'core:staff' %}" class="text-body">işçilər</a>
+                    haqda
+                    məlumat ala və şirkət işçiləri ilə <a href="{% url 'core:inbox' %}" class="text-body">
+                    məlumat mübadiləsi </a> edə bilərsiniz.
+                </p>
+            </div>
+        </section>
+    </div>
+</section>
+</body>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'core/layout/base.html' %}
+{% block main %}
+<body>
+<section class="body">
+    <div class="inner-wrapper">
+        <section role="main" class="content-body">
+            <header class="page-header">
+                <h2>Detail</h2>
+                <div class="right-wrapper text-right">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="{% url 'core:company' %}">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li><span>Trash</span></li>
+                        <li><span>Detail</span></li>
+                    </ol>
+                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </header>
+            <!-- start: page -->
+            <section class="content-with-menu mailbox">
+                <div class="content-with-menu-container" data-mailbox data-mailbox-view="email">
+                    <div class="inner-menu-toggle">
+                        <a href="#" class="inner-menu-expand" data-open="inner-menu">
+                            Show Menu <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                    <menu id="content-menu" class="inner-menu" role="menu">
+                        <div class="nano">
+                            <div class="nano-content">
+                                <div class="inner-menu-toggle-inside">
+                                    <a href="#" class="inner-menu-collapse">
+                                        <i class="fas fa-chevron-up d-inline-block d-md-none"></i><i
+                                            class="fas fa-chevron-left d-none d-md-inline-block"></i> Hide Menu
+                                    </a>
+                                    <a href="#" class="inner-menu-expand" data-open="inner-menu">
+                                        Show Menu <i class="fas fa-chevron-down"></i>
+                                    </a>
+                                </div>
+                                <div class="inner-menu-content">
+                                    <a style="color:white" href="{% url 'core:compose' %}"
+                                       class="btn btn-block btn-info btn-md pt-2 pb-2 text-3">
+                                        <i class="fas fa-envelope mr-1"></i>
+                                        Compose
+                                    </a>
+                                    <ul class="list-unstyled mt-3 pt-3">
+                                        <li>
+                                            <a href="{% url 'core:inbox' %}" class="menu-item">Inbox
+                                                <span class="badge badge-info font-weight-normal float-right">{{ inbox_count }}</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'core:sent' %}" class="menu-item">Sent</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'core:drafts' %}" class="menu-item">Drafts</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'core:trash' %}" class="menu-item active">Trash</a>
+                                        </li>
+                                    </ul>
+                                    <hr class="separator"/>
+                                </div>
+                            </div>
+                        </div>
+                    </menu>
+                    <div class="inner-body mailbox-email">
+                        <div class="mailbox-email-container">
+                            <div class="mailbox-email-screen pt-4">
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        <div class="card-actions">
+                                            <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                                        </div>
+                                        <p class="card-title">{{ message.from_user }} <i
+                                                class="fas fa-angle-right fa-fw"></i> {{ message.to_id}}</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5><i>Subject : </i></h5> {{ message.subject }} <br>
+                                        <h5><i> Content :</i></h5> {{ message.content }}
+                                    </div>
+                                    <div class="card-footer">
+                                        <p class="m-0"><small>{{ message.time }}</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- end: page -->
+        </section>
+    </div>
+</section>
+</body>
+{% endblock %}

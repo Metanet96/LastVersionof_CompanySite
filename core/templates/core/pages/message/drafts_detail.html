@@ -1,0 +1,141 @@
+{% extends 'core/layout/base.html' %}
+{% block main %}
+<body>
+<section class="body">
+    <div class="inner-wrapper">
+        <section role="main" class="content-body">
+            <header class="page-header">
+                <h2>Drafts</h2>
+                <div class="right-wrapper text-right">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="{% url 'core:company' %}">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li><span>Drafts</span></li>
+                        <li><span>Details</span></li>
+                    </ol>
+                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </header>
+            <!-- start: page -->
+            <section class="content-with-menu mailbox">
+                <div class="content-with-menu-container" data-mailbox data-mailbox-view="email">
+                    <div class="inner-menu-toggle">
+                        <a href="#" class="inner-menu-expand" data-open="inner-menu">
+                            Show Menu <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                    <menu id="content-menu" class="inner-menu" role="menu">
+                        <div class="nano">
+                            <div class="nano-content">
+                                <div class="inner-menu-toggle-inside">
+                                    <a href="#" class="inner-menu-collapse">
+                                        <i class="fas fa-chevron-up d-inline-block d-md-none"></i><i
+                                            class="fas fa-chevron-left d-none d-md-inline-block"></i> Hide Menu
+                                    </a>
+                                    <a href="#" class="inner-menu-expand" data-open="inner-menu">
+                                        Show Menu <i class="fas fa-chevron-down"></i>
+                                    </a>
+                                </div>
+                                <div class="inner-menu-content">
+                                    <a style="color:white" href="{% url 'core:compose' %}"
+                                       class="btn btn-block btn-info btn-md pt-2 pb-2 text-3">
+                                        <i class="fas fa-envelope mr-1"></i>
+                                        Compose
+                                    </a>
+                                    <ul class="list-unstyled mt-3 pt-3">
+                                        <li>
+                                            <a href="{% url 'core:inbox' %}" class="menu-item">Inbox
+                                                <span class="badge badge-info font-weight-normal float-right">{{ inbox_count }}</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'core:sent' %}" class="menu-item">Sent</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'core:drafts' %}" class="menu-item active">Drafts</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'core:trash' %}" class="menu-item">Trash</a>
+                                        </li>
+                                    </ul>
+                                    <hr class="separator"/>
+                                </div>
+                            </div>
+                        </div>
+                    </menu>
+                    <div class="inner-body">
+                        <div class="mailbox-compose">
+                            <form class="form-horizontal form-bordered form-bordered" method="post" id="myForm">
+                                {% csrf_token %}
+                                <input type="hidden" name="status" id="status">
+                                <div class="form-group form-group-invisible">
+                                    <label for="from_user" class="control-label-invisible">From:</label>
+                                    <div class="col-md-12 mailbox-compose-field">
+                                        <span id="from_user" class="text-danger form-control form-control-invisible">{{message.from_user.username}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-invisible">
+                                    <label for="to_id" class="control-label-invisible">To:</label>
+                                    <div class="col-md-12 mailbox-compose-field">
+                                        <select name="to_id" id="to_id" class="form-control form-control-invisible"
+                                                data-role="tagsinput" data-tag-class="badge badge-primary">
+                                            <option hidden> Select user:</option>
+                                            {% for user in users %}
+                                            <option value="{{ user.pk }}">{{ user.username }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-invisible">
+                                    <label for="subject" class="control-label-invisible">Subject:</label>
+                                    <div class="col-md-12 mailbox-compose-field">
+                                        <input id="subject" name="subject" type="text" value="{{ message.subject }}"
+                                               class="form-control form-control-invisible">
+                                    </div>
+                                    {{ form.subject.errors }}
+                                </div>
+                                <div class="form-group form-group-invisible">
+                                    <label for="content" class="control-label-invisible">Content:</label>
+                                    <div class="col-md-12 mailbox-compose-field">
+                                        <textarea rows="5" cols="80" name="content" id="content"
+                                                  class="form-control form-control-invisible">
+                                        {{ message.content }}
+										</textarea> <br>
+                                    </div>
+                                    {{ form.content.errors }}
+                                </div>
+                                <div class="row">
+                                    <div class="btn-group mx-auto">
+                                        <button data-code="draft" type="button" onclick="set_status(event)"
+                                                class="btn btn-primary">Draft
+                                        </button>
+                                        <button data-code="send" type="button" onclick="set_status(event)"
+                                                class="btn btn-info">Send
+                                        </button>
+                                        <button type="reset" class="btn btn-danger">Reset</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- end: page -->
+        </section>
+    </div>
+</section>
+</body>
+{% endblock %}
+
+{% block js %}
+<script>
+function set_status(event){
+    console.log(event.target.dataset.code)
+    $("#status").val(event.target.dataset.code)
+    $("#myForm").submit()
+}
+</script>
+{% endblock %}

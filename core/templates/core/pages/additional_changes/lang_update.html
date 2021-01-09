@@ -1,0 +1,97 @@
+{% extends 'core/layout/base.html' %}
+{% block main %}
+<body>
+<section class="body">
+    <div class="inner-wrapper">
+        <section role="main" class="content-body pb-0">
+            <header class="page-header">
+                <h2>Language update</h2>
+                <div class="right-wrapper text-right">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="{% url 'core:company' %}">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li><span>Language update</span></li>
+                    </ol>
+                    <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </header>
+            <div class="col-lg-8 mx-auto">
+                <main>
+                    <form method="post" class="form-horizontal form-bordered">
+                        {% csrf_token %}
+                        <section class="card">
+                            <header class="card-header">
+                                <div class="card-actions">
+                                    <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                                    <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                                </div>
+                                <h2 class="card-title">Update Language: <span style="color:BlueViolet">{{ lang_info.emplooyee.surname }} {{ lang_info.emplooyee.name }}</span></h2>
+                            </header>
+                            <div class="card-body" style="background-color:Linen">
+                                <div class="form-group row">
+                                    <label for="emplooyee" class="col-sm-4 control-label text-sm-right pt-2">About:</label>
+                                    <div class="col-sm-8">
+                                        <select name="emplooyee" id="emplooyee" class="form-control">
+                                            {% for a in about %}
+                                            <option value="{{ a.pk }}">{{ a.surname }} {{ a.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="language" class="col-sm-4 control-label text-sm-right pt-2">Language:</label>
+                                    <div class="col-sm-8">
+                                        <select name="language" id="language" class="form-control">
+                                            {% for lang in language %}
+                                            <option {% if lang_info.language.pk == lang.pk %}
+                                                    selected {% endif%}
+                                                    value="{{ lang.pk }}">{{ lang.lang_name }} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="language_level" class="col-sm-4 control-label text-sm-right pt-2">Language
+                                        level:</label>
+                                    <div class="col-sm-8">
+                                        <select name="language_level" id="language_level" class="form-control">
+                                            {% for lvl in language_level %}
+                                            <option {% if lang_info.language_level.pk == lvl.pk %}
+                                                    selected {% endif%}
+                                                    value="{{ lvl.pk }}">{{ lvl.lvl_name }} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="certificate_number" class="col-sm-4 control-label text-sm-right pt-2">Certificate №:</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" id="certificate_number" name="certificate_number" class="form-control"
+                                               value="{{ lang_info.certificate_number }}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="certificate_date" class="col-sm-4 control-label text-sm-right pt-2">Date:</label>
+                                    <div class="col-sm-8">
+                                        <input type="date" id="certificate_date" name="certificate_date" class="form-control"
+                                               value="{{ lang_info.certificate_date }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <footer class="card-footer text-right">
+                                <button class="btn btn-warning" type="submit">Update</button>
+                                <button class="btn btn-danger"><a href="{% url 'core:employee_additional' lang_info.emplooyee.pk %}">Cancel</a>
+                                </button>
+                            </footer>
+                        </section>
+                    </form>
+                </main>
+            </div>
+        </section>
+    </div>
+</section>
+</body>
+{% endblock %}
